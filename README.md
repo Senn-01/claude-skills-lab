@@ -70,17 +70,58 @@ Execute macOS automation via AppleScript or JavaScript for Automation (JXA).
 "open a new terminal window with osascript"
 ```
 
+### 3. Hooks Skill
+
+Configure Claude Code hooks to automate actions at lifecycle events (task completion, waiting for input, tool usage).
+
+```
+.claude/skills/hooks/
+├── SKILL.md
+└── cookbook/
+    ├── stop.md          # Task completion hooks
+    ├── notification.md  # Idle/input needed hooks
+    ├── tool-use.md      # Pre/Post tool validation
+    ├── session.md       # Session start/end hooks
+    └── reference.md     # Configuration reference
+```
+
+**Triggers**: "hook", "configure hook", "add hook", "notification hook"
+
+**Key Events**:
+| Event | When | Use Case |
+|-------|------|----------|
+| `Stop` | Claude finishes responding | Notify user task is done |
+| `Notification` (idle_prompt) | Claude waiting ~60s | Alert user input needed |
+| `PreToolUse` | Before tool execution | Validate/block commands |
+| `SessionStart` | Session begins | Setup environment |
+
+**Example**:
+```
+"configure a hook to notify me when Claude finishes a task"
+"add a hook for when Claude needs my input"
+```
+
+**Included Configuration** (`.claude/settings.json`):
+```json
+{
+  "hooks": {
+    "Stop": [{ "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/task-complete.sh" }] }],
+    "Notification": [{ "matcher": "idle_prompt", "hooks": [{ "type": "command", "command": "$CLAUDE_PROJECT_DIR/.claude/hooks/needs-input.sh" }] }]
+  }
+}
+```
+
 ## Installation
 
 Copy any skill directory to your project's `.claude/skills/` folder, or to `~/.claude/skills/` for personal use across all projects.
 
 ## Platform Support
 
-| Platform | Fork Terminal | osascript |
-|----------|---------------|-----------|
-| macOS | Supported | Supported |
-| Windows | Supported | N/A |
-| Linux | Not yet | N/A |
+| Platform | Fork Terminal | osascript | Hooks |
+|----------|---------------|-----------|-------|
+| macOS | Supported | Supported | Supported |
+| Windows | Supported | N/A | Supported |
+| Linux | Not yet | N/A | Supported |
 
 ## Creating Your Own Skills
 
