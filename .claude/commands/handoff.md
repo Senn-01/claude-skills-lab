@@ -11,32 +11,34 @@ Update `ai-docs/handoff.md` to reflect current project state for the next Claude
 1. **Gather context:**
    - Read current `ai-docs/handoff.md`
    - Run `git status` to see uncommitted changes
-   - Run `git diff --stat HEAD~3` to see recent file changes
    - Run `git log --oneline -5` for recent commits
-   - Use user's hint (if provided) as directional guidance
+   - Use user's hint (if provided) as guidance
 
 2. **Infer what happened:**
-   - What files changed and why?
-   - What's the current state of the project?
+   - What changed and why?
    - What decisions were made?
    - What's unfinished or next?
 
-3. **Update the handoff doc:**
-   - Set `updated:` to today's date
-   - Set `last-session:` to brief summary of this work
-   - Update `## Now` with current state
-   - Add any new decisions to `## Decisions`
-   - Add any discovered gotchas to `## Gotchas`
-   - Update `## Next` with current priorities
+3. **Update the handoff doc** following the format below
 
 ## Format
 
-Keep it SHORT. The next Claude can explore - this doc is for context that's NOT obvious from code.
-
-```markdown
+```yaml
 ---
+version: X.Y.Z
 updated: YYYY-MM-DD
-last-session: brief description
+last-session: brief description of this session's work
+rationale: |
+  (Only when version is bumped)
+  Explain WHY this version bump matters.
+  What's the significance? What direction?
+changelog:
+  - version: X.Y.Z
+    changes:
+      - What was added/changed
+  - version: (previous)
+    changes:
+      - Previous changes
 ---
 
 # Handoff
@@ -45,23 +47,35 @@ last-session: brief description
 2-3 lines. Current state. What's in progress.
 
 ## Decisions
-- Why X over Y (not what - why)
+- **Choice made** - why, not what
 - User preferences
-- Constraints
+- Constraints not obvious from code
 
 ## Gotchas
 - Things that will bite you
 - Non-obvious requirements
+- Tribal knowledge
 
 ## Next
 - [ ] Prioritized tasks
 - [ ] What's blocked
 ```
 
+## Version Bumping
+
+When to bump:
+- **Patch (0.0.X)**: Bug fixes, minor tweaks
+- **Minor (0.X.0)**: New features, commands, skills
+- **Major (X.0.0)**: Breaking changes, major refactors
+
+**Always include `rationale:`** when bumping version - explain the significance.
+
 ## Rules
 
-- Don't duplicate README content
-- Don't list all files (git does that)
-- Focus on WHY, not WHAT
-- Be concise - 30 useful lines > 300 stale lines
+- **Complement, don't duplicate:**
+  - NO structure section (use `git ls-files`)
+  - NO files changed section (use `git log --stat`)
+  - NO README content (Claude reads that via `/prime`)
+- Focus on **WHY**, not **WHAT**
+- Keep it SHORT - 40 useful lines > 200 stale lines
 - If no handoff.md exists, create it

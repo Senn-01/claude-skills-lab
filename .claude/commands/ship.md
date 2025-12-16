@@ -1,59 +1,74 @@
-# Ship
+# Ship (Automated)
 
 User hint: $ARGUMENTS
 
 ## Your Task
 
-Complete shipping workflow: update docs → commit → optionally push.
+Fully automated shipping: update docs → commit → push. No prompts, just execute.
 
 ## Workflow
 
-### Step 1: Update Handoff
+### Step 1: Gather Context
 
-Run the `/handoff` workflow:
-1. Read current `ai-docs/handoff.md`
-2. Run `git status`, `git diff --stat HEAD~3`, `git log --oneline -5`
-3. Infer what changed, update handoff with current state
-4. Use user hint if provided
+```bash
+git status
+git log --oneline -5
+```
 
-### Step 2: Check README
+Read `ai-docs/handoff.md` and `README.md`.
 
-Evaluate if README.md needs updates:
-- New features added? → Update features section
-- New commands added? → Update commands table
-- New skills added? → Update skills section
-- Structure changed significantly? → Update structure
+### Step 2: Update Handoff
 
-**Ask user:** "README changes detected. Update? [Y/n]"
-- If yes, make minimal targeted updates
-- If no, skip
+Update `ai-docs/handoff.md`:
+- Bump version if significant changes
+- Update `last-session` with this work
+- Add to changelog
+- If version bumped, add `rationale:` explaining WHY
+- Update Now, Decisions, Gotchas, Next as needed
 
-### Step 3: Stage Changes
+### Step 3: Update README (if needed)
+
+Only update if:
+- New features/skills/commands added
+- Structure changed significantly
+
+Keep changes minimal and targeted.
+
+### Step 4: Stage All
 
 ```bash
 git add -A
 ```
 
-Show what will be committed.
+### Step 5: Commit
 
-### Step 4: Commit
+Generate conventional commit message and commit immediately:
 
-Run the `/commit` workflow:
-1. Analyze staged changes
-2. Generate conventional commit message:
-   ```
-   type(scope): description
+```bash
+git commit -m "type(scope): description
 
-   [body if needed]
-   ```
-3. **Show for approval** - never auto-commit
-4. On approval, commit
+body if needed
 
-### Step 5: Push (Optional)
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
 
-Ask: "Push to origin? [y/N]"
-- If yes, push
-- If no, done
+Co-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>"
+```
+
+### Step 6: Push
+
+```bash
+git push
+```
+
+### Step 7: Report
+
+Output summary:
+```
+✓ Handoff updated (vX.Y.Z)
+✓ README updated (or "unchanged")
+✓ Committed: <hash> <message>
+✓ Pushed to origin
+```
 
 ## Conventional Commit Types
 
@@ -63,12 +78,12 @@ Ask: "Push to origin? [y/N]"
 | `fix` | Bug fix |
 | `docs` | Docs only |
 | `refactor` | Code restructure |
-| `chore` | Maintenance |
+| `chore` | Maintenance, config |
 
 ## Rules
 
-- Always show what you're doing at each step
-- Never auto-commit - require explicit approval
-- Keep README updates minimal and targeted
+- **No prompts** - execute everything automatically
+- **Always push** - that's what ship means
+- Report what was done at the end
 - If nothing changed, say so and exit early
 - User hint guides the narrative but infer from actual changes
