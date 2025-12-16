@@ -1,7 +1,13 @@
 ---
-version: 0.2.0
+version: 0.3.0
 date: 2025-12-16
 changelog:
+  - version: 0.3.0
+    changes:
+      - Added skill-creator meta-skill (IndyDevDan methodology)
+      - Implements Core Four framework (Context, Model, Prompt, Tools)
+      - Coaching approach: human-driven, AI-assisted
+      - Tavily MCP for verification instead of assumptions
   - version: 0.2.0
     changes:
       - Added examples/ directory for skill outputs
@@ -15,11 +21,12 @@ changelog:
       - Added hooks skill (Claude Code lifecycle automation)
       - Configured Stop and Notification hooks for user alerts
 rationale: |
-  Skills lab evolves beyond skill creation into skill usage demonstration.
-  The examples/ directory shows what skills can produce - bridging the gap
-  between "here's how to build skills" and "here's what they create".
-  Neural Bloom demonstrates plugin skills (algorithmic-art) producing
-  real, interactive artifacts.
+  The skill-creator completes the skills lab vision: learn by doing.
+  Based on IndyDevDan's methodology from skills-from-scratch.md:
+  - "Begin with end in mind" - plan before coding
+  - "Core Four" - master the primitives
+  - "In-loop agentic coding" - human orchestrates, AI assists
+  Key addition: Tavily MCP for verification (don't assume Claude knows).
 ---
 
 # Handoff Document
@@ -41,7 +48,8 @@ rationale: |
 ├── skills/
 │   ├── fork-terminal/         # Original: spawn terminals with AI agents
 │   ├── osascript/             # macOS automation
-│   └── hooks/                 # Claude Code hooks reference
+│   ├── hooks/                 # Claude Code hooks reference
+│   └── skill-creator/         # Meta-skill: create skills (IndyDevDan method)
 └── commands/
     └── prime.md               # Codebase primer command
 
@@ -61,6 +69,7 @@ ai-docs/
 | fork-terminal | "fork terminal use X to..." | Spawn AI agents in new terminals |
 | osascript | "osascript", "applescript" | macOS automation (notifications, apps, system) |
 | hooks | "configure hook", "add hook" | Claude Code lifecycle automation |
+| skill-creator | "create a skill", "build a skill" | Meta-skill: guide skill creation |
 
 ## Key Patterns
 
@@ -90,6 +99,7 @@ EOF
 2. **osascript** - Tested: notifications, speech, terminal automation
 3. **Hooks** - Configured for Stop and idle_prompt events
 4. **Plugin skills** - Used algorithmic-art to create Neural Bloom generative art
+5. **Skill creator** - Meta-skill using IndyDevDan's Core Four methodology
 
 ## Next Steps (Suggestions)
 
@@ -97,6 +107,12 @@ EOF
 - Add cookbook for PreToolUse validation hooks
 - Test hooks in live Claude Code session (`/hooks` to verify)
 - Consider global installation: `~/.claude/skills/`
+
+## Files Changed (v0.3.0)
+
+- `.claude/skills/skill-creator/` - NEW: 6 files (meta-skill)
+- `README.md` - Added skill-creator documentation
+- `ai-docs/handoff.md` - Updated with IndyDevDan methodology
 
 ## Files Changed (v0.2.0)
 

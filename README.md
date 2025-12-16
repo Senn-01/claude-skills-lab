@@ -111,17 +111,52 @@ Configure Claude Code hooks to automate actions at lifecycle events (task comple
 }
 ```
 
+### 4. Skill Creator (Meta-Skill)
+
+Guide for creating Claude Code skills using IndyDevDan's methodology. Coaches rather than automates.
+
+```
+.claude/skills/skill-creator/
+├── SKILL.md
+└── cookbook/
+    ├── 1-plan.md        # Begin with end in mind, Core Four
+    ├── 2-structure.md   # Pivot file, progressive disclosure
+    ├── 3-implement.md   # Create files with rationale
+    ├── 4-verify.md      # Test, iterate
+    └── reference.md     # Specs and patterns
+```
+
+**Triggers**: "create a skill", "build a skill", "new skill for X"
+
+**Philosophy**: Human-driven, AI-assisted. Based on IndyDevDan's "Core Four":
+- **Context**: What info does Claude need?
+- **Model**: Any model-specific needs?
+- **Prompt**: What instructions in SKILL.md?
+- **Tools**: What scripts/resources?
+
+**Workflow**:
+1. **Plan** - Gather examples, apply Core Four analysis
+2. **Structure** - Design with progressive disclosure
+3. **Implement** - Create files, verify with Tavily
+4. **Verify** - Test scripts, iterate
+
+**Example**:
+```
+"create a skill for git automation"
+→ Guides you through planning, structure, implementation, testing
+```
+
 ## Installation
 
 Copy any skill directory to your project's `.claude/skills/` folder, or to `~/.claude/skills/` for personal use across all projects.
 
 ## Platform Support
 
-| Platform | Fork Terminal | osascript | Hooks |
-|----------|---------------|-----------|-------|
-| macOS | Supported | Supported | Supported |
-| Windows | Supported | N/A | Supported |
-| Linux | Not yet | N/A | Supported |
+| Platform | Fork Terminal | osascript | Hooks | Skill Creator |
+|----------|---------------|-----------|-------|---------------|
+| macOS | Supported | Supported | Supported | Supported |
+| Windows | Supported | N/A | Supported | Supported |
+| Linux | Not yet | N/A | Supported | Supported |
 
 ## Examples
 
