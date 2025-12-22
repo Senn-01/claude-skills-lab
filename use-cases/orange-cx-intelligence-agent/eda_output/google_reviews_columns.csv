@@ -1,0 +1,18 @@
+column,dtype,non_null,null_count,null_pct,unique,unique_pct,mode,mode_freq,has_leading_space,has_trailing_space,case_inconsistent,mean,std,min,max,median,outlier_count,outlier_pct
+Business_ID,object,1827,2,0.11,145,7.93,668c00343a0e689bf0009798,4.81,False,False,False,,,,,,,
+Review_ID,float64,1815,14,0.77,1791,97.92,,,,,,145606048.54,7703213.03,93493745.0,153531614.0,146874161.0,35.0,1.93
+Timestamp_Client_Feedback,object,1814,15,0.82,1789,97.81,2025-06-22T23:41:57.836473+02:00,0.11,False,False,False,,,,,,,
+Client_Feedback,object,1645,184,10.06,1433,78.35,-,9.9,False,False,True,,,,,,,
+Client_Rating,object,1827,2,0.11,6,0.33,5,68.07,False,False,False,,,,,,,
+Client_Name,object,1829,0,0.0,1751,95.74,Joane,0.22,False,False,True,,,,,,,
+Timestamp_Ai_Agent_Response,object,1746,83,4.54,1730,94.59,2025-08-14T09:27:02.269058+02:00,0.11,False,False,False,,,,,,,
+Ai_Agent_Response,object,1826,3,0.16,1823,99.67,"Bedankt, Jacko! Geweldig om te horen dat je tevreden bent met je ervaring in onze shop. We staan altijd klaar om je verder te helpen en zien je graag snel terug.",0.11,True,True,False,,,,,,,
+Shop_Name,object,1827,2,0.11,260,14.22,Orange Shop Charleroi Rive Gauche Shopping Center,3.83,False,False,False,,,,,,,
+Key_Account_Manager_Email,float64,0,1829,100.0,0,0.0,,,,,,,,,,,,
+Shop_Manager,float64,0,1829,100.0,0,0.0,,,,,,,,,,,,
+Correction,object,1,1828,99.95,1,0.05,"Nous sommes désolés d'apprendre que votre expérience avec une partie de notre personnel n'a pas été satisfaisante. Votre feedback est important pour nous, et nous prenons cette critique très au sérieux. Nous nous excusons pour l'inconvénient et nous nous assurons que vos commentaires seront partagés avec les responsables concernés pour améliorer nos services. Si vous avez besoin d'assistance supplémentaire, n'hésitez pas à contacter notre service clientèle. Votre satisfaction est notre priorité absolue.",0.05,False,False,False,,,,,,,
+Duplicates,object,1756,73,3.99,20,1.09,ok,94.97,False,False,False,,,,,,,
+TimeStamp,object,1760,69,3.77,633,34.61,old,36.14,False,False,False,,,,,,,
+Unnamed: 14,float64,0,1829,100.0,0,0.0,,,,,,,,,,,,
+Unnamed: 15,float64,0,1829,100.0,0,0.0,,,,,,,,,,,,
+Unnamed: 16,object,1,1828,99.95,1,0.05,P2,0.05,False,False,False,,,,,,,

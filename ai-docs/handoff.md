@@ -1,22 +1,30 @@
 ---
-version: 0.10.0
+version: 0.11.0
 updated: 2025-12-22
-last-session: added /data-llm command (phase 5) for LLM/SQL agent context preparation
+last-session: rebranded to Dev-0's Lab + restructured repo (use-cases/, init-cc-repo)
 rationale: |
-  Extended data-analyst skill from 4 phases to 5. Added /data-llm command that synthesizes
-  all prior phases into a single context document for SQL agent injection. Created 7 cookbook
-  files covering schema, limits, queries, glossary, and code patterns. Tested on Orange CX
-  project, producing comprehensive data-llm-orange-cx-intelligence.md.
+  Rebranded from "Claude Skills Lab" to "Dev-0's Lab" — personal workspace for AI agent
+  development. Restructured repo: examples/ → use-cases/, repo-template → init-cc-repo,
+  research moved to use-cases/research/. Updated data-analyst skill to output to project
+  directories (use-cases/{project}/docs/) instead of ai-docs/.
 changelog:
+  - version: 0.11.0
+    changes:
+      - Rebranded to "Dev-0's Lab" (personal workspace, not just learning)
+      - Renamed examples/ → use-cases/ (active projects, not static demos)
+      - Renamed repo-template → init-cc-repo (action-oriented)
+      - Moved research outputs to use-cases/research/
+      - Updated data-analyst skill output paths to use-cases/{project}/docs/
+      - Simplified README with new structure philosophy
+      - Structure: .claude/ (tools) | ai-docs/ (context) | use-cases/ (outputs)
   - version: 0.10.0
     changes:
       - Added /data-llm command (phase 5/5 of data-analyst workflow)
       - Created 7 cookbook files in cookbook/llm/ (why, schema, limits, queries, glossary, code, reference-bigquery)
-      - Generated ai-docs/data-llm-orange-cx-intelligence.md for Orange CX project
+      - Generated data-llm-orange-cx-intelligence.md for Orange CX project
       - LLM context includes schema+semantics, data limits, query patterns, anti-patterns, glossary
       - Added reference-bigquery.md to cookbook (CSV vs JSONL gotchas)
       - Updated SKILL.md with phase 5 routing and cookbook reference
-      - Updated README.md with 5-phase workflow and /data-llm command
   - version: 0.9.0
     changes:
       - Completed full 4-phase data-analyst workflow (understand → explore → clean → validate)
@@ -114,16 +122,23 @@ changelog:
 
 ## Now
 
-v0.10.0 - **Added /data-llm command** (phase 5/5 of data-analyst workflow).
+v0.11.0 - **Rebranded to Dev-0's Lab** + restructured repository.
 
-| What | Details |
-|------|---------|
-| New command | `/data-llm [project]` |
-| Purpose | Synthesize all prior phases into single LLM context document |
-| Output | `ai-docs/data-llm-{project}.md` |
-| Cookbook files | 7 new files in `cookbook/llm/` |
+| Change | Before | After |
+|--------|--------|-------|
+| Name | Claude Skills Lab | Dev-0's Lab |
+| examples/ | Static demos | use-cases/ (active projects) |
+| repo-template | Passive template | init-cc-repo (action-oriented) |
+| research | ai-docs/research-*.md | use-cases/research/ |
+| DA outputs | ai-docs/data-*.md | use-cases/{project}/docs/ |
 
-**Tested on Orange CX project**: Generated comprehensive `data-llm-orange-cx-intelligence.md` with schema, limits, query patterns, anti-patterns, and glossary.
+### Structure Philosophy
+
+```
+.claude/     = The TOOLS (skills, commands)
+ai-docs/     = The CONTEXT (handoff for LLM, notes for human)
+use-cases/   = The OUTPUTS (projects, research, templates)
+```
 
 ### The 5-Phase Workflow (Complete)
 
@@ -133,7 +148,7 @@ v0.10.0 - **Added /data-llm command** (phase 5/5 of data-analyst workflow).
 | /data-explore | EDA report, quality issues | 37.5% shops CLOSED, 78% verbatims empty |
 | /data-clean | 3 clean tables | MOBIS case fixed, language inferred from zip |
 | /data-validate | Quality certificate (99.9%) | 24 dupe review_ids, 3 null ratings |
-| /data-llm | **NEW** LLM context document | Schema+semantics, limits, query patterns, glossary |
+| /data-llm | LLM context document | Schema+semantics, limits, query patterns, glossary |
 
 ## Data Analyst Methodology (Proven on Orange CX)
 
@@ -161,14 +176,13 @@ v0.10.0 - **Added /data-llm command** (phase 5/5 of data-analyst workflow).
 ### Output Structure
 
 ```
-ai-docs/
-├── data-understand-{project}.md   # Business context
-├── data-explore-{project}.md      # EDA findings
-├── data-clean-{project}.md        # Cleaning decisions
-├── data-validate-{project}.md     # Quality certificate
-└── data-llm-{project}.md          # LLM context (for SQL agent injection)
-
-cases/{project}/
+use-cases/{project}/
+├── docs/
+│   ├── data-understand.md         # Business context
+│   ├── data-explore.md            # EDA findings
+│   ├── data-clean.md              # Cleaning decisions
+│   ├── data-validate.md           # Quality certificate
+│   └── data-llm.md                # LLM context (for SQL agent injection)
 ├── eda_{project}.py               # EDA script
 ├── clean_{project}.py             # Cleaning pipeline
 ├── validate_{project}.py          # Validation gate
@@ -246,6 +260,9 @@ shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
 
 ## Decisions
 
+- **Dev-0's Lab rebrand** - Personal workspace, not just a learning repo
+- **use-cases/ not examples/** - Active projects, not static demos
+- **Project-based outputs** - Data analyst outputs to use-cases/{project}/docs/
 - **5-phase workflow** - Added /data-llm as synthesis phase after validation
 - **Single context document** - All LLM context in one file for easy injection
 - **Limits as first-class** - Agent must know boundaries before generating SQL
@@ -300,21 +317,15 @@ shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
 ## Next
 
 - [x] Test data-analyst skill on real dataset (Orange CX Intelligence)
-- [x] Complete /data-explore phase for Orange CX project
-- [x] Complete /data-clean phase for Orange CX project
-- [x] Complete /data-validate phase for Orange CX project
-- [x] Export to JSONL for BigQuery (CSV had multiline issues)
-- [x] **Create `/data-llm` command** - Prepare LLM to understand data structure
-  - [x] Generate schema documentation for SQL agent
-  - [x] Include: table relationships, column meanings, join keys
-  - [x] Include: known data gaps (28 unmapped MOBIS, 36% SMS unlinked)
-  - [x] Include: query patterns (time filtering, shop aggregation)
-  - [x] Output: `ai-docs/data-llm-{project}.md` for agent context injection
-  - [x] 7 cookbook files in `cookbook/llm/`
-  - [x] reference-bigquery.md added to cookbook
+- [x] Complete full 5-phase workflow (understand → explore → clean → validate → llm)
+- [x] Create `/data-llm` command with 7 cookbook files
+- [x] Rebrand to Dev-0's Lab
+- [x] Restructure: examples/ → use-cases/, repo-template → init-cc-repo
+- [x] Update data-analyst output paths to use-cases/{project}/docs/
 - [ ] Load JSONL files to BigQuery and test queries
 - [ ] **Inject data-llm doc into SQL agent** and test query generation
-- [ ] Add data-analyst to examples/repo-template/
-- [ ] Test repo-template in fresh repo
+- [ ] Add data-analyst to init-cc-repo
+- [ ] Test init-cc-repo in fresh repo
 - [ ] Add skill activation hook (P0 from retrospective)
 - [ ] Consider global installation `~/.claude/skills/`
+- [ ] Rename GitHub repo to dev-0-lab (optional)

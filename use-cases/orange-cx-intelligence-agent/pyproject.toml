@@ -1,0 +1,9 @@
+[project]
+name = "orange-cx-intelligence-eda"
+version = "0.1.0"
+description = "EDA for Orange CX Intelligence customer feedback data"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.0.0",
+    "numpy>=1.24.0",
+]

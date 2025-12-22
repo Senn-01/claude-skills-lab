@@ -1,0 +1,8 @@
+column,dtype,non_null,null_count,null_pct,unique,unique_pct,mode,mode_freq,has_leading_space,has_trailing_space,case_inconsistent,mean,std,min,max,median,outlier_count,outlier_pct
+id,object,161,0,0.0,161,100.0,6669610334fb243c680a7680,0.62,False,False,False,,,,,,,
+name,object,161,0,0.0,142,88.2,VOO,8.7,False,False,False,,,,,,,
+code,object,161,0,0.0,161,100.0,11583059907093408379,0.62,False,False,False,,,,,,,
+city,object,161,0,0.0,103,63.98,Liège,4.97,False,False,False,,,,,,,
+address,object,161,0,0.0,158,98.14,"Chaussée de Mons, 18",1.24,False,False,True,,,,,,,
+zipcode,int64,161,0,0.0,106,65.84,,,,,,4529.97,2650.34,1000.0,9900.0,4100.0,0.0,0.0
+full name,object,161,0,0.0,160,99.38,Corner VOO Liège,1.24,False,False,False,,,,,,,

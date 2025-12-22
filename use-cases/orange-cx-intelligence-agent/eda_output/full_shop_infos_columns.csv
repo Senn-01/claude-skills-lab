@@ -1,0 +1,20 @@
+column,dtype,non_null,null_count,null_pct,unique,unique_pct,mode,mode_freq,has_leading_space,has_trailing_space,case_inconsistent
+Macro-Segment,object,2224,0,0.0,17,0.76,DISTRIBUTORS,40.38,False,False,True
+Type of own shop,object,95,2129,95.73,9,0.4,shop,2.61,False,False,False
+new mainchain,object,2224,0,0.0,617,27.74,TECHNOCOM RAL BVBA,8.18,False,False,True
+Aramis code,object,2219,5,0.22,2211,99.42,ANTAM002,0.09,False,False,False
+External Partner code,object,80,2144,96.4,79,3.55,CSC CONSULTING,0.09,False,False,False
+POS name,object,2224,0,0.0,1708,76.8,PS aroport Zaventem,0.27,False,False,True
+Address,object,1803,421,18.93,1319,59.31,0,1.93,False,False,True
+Box,object,731,1493,67.13,270,12.14,0,3.1,False,False,False
+Zip,object,1770,454,20.41,565,25.4,1000,2.07,False,False,False
+City,object,1800,424,19.06,583,26.21,BRUXELLES,6.03,False,False,True
+Shop manager name,object,338,1886,84.8,196,8.81,Yves Ghyselinck,0.49,False,False,True
+Shop Manager/ private shop email,object,306,1918,86.24,210,9.44,jouyttendaele.orangeshops@gmail.com,0.31,False,False,True
+District / Key account manager name,object,1245,979,44.02,35,1.57,BAKKALI HICHAM,17.99,False,False,False
+District / Key account manager email,object,1245,979,44.02,35,1.57,hicham.bakkali@orange.com,17.99,False,False,False
+AREA,object,116,2108,94.78,7,0.31,Flandre 1,0.94,False,False,False
+Regional Sales manager name,object,1175,1049,47.17,13,0.58,SCHOEPEN IVAN,35.39,False,False,False
+Regional Sales manager email,object,1175,1049,47.17,13,0.58,ivan.schoepen@orange.com,34.89,False,False,False
+TSS manager,object,295,1929,86.74,121,5.44,BURNUS JOAQUIM,0.58,False,False,True
+IAM - Language,object,625,1599,71.9,4,0.18,FR,16.41,False,False,True

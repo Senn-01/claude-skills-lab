@@ -1,0 +1,8 @@
+table,operation,description,rows_before,rows_after,rows_diff,cols_before,cols_after
+dim_shops,FILTER,Removed CLOSED shops from shop_info,2224,1389,-835,,
+dim_shops,MERGE,Enriched with shop_info metadata,161,161,0,,
+dim_shops,INFER,Inferred language from zipcode,53,0,-53,,
+fact_google_reviews,DROP_COLS,Removed 5 empty/unnamed columns,1829,1829,0,17.0,12.0
+fact_google_reviews,DROP_ROWS,Removed 14 rows with missing review_id,1829,1815,-14,,
+fact_sms_surveys,EXTRACT,Extracted MOBIS code from shop name,5268,4581,-687,,
+fact_sms_surveys,MAP,Mapped MOBIS to shop_id,4581,3363,-1218,,

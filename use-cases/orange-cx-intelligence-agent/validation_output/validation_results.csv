@@ -1,0 +1,28 @@
+table,dimension,check,passed,failed,total,pass_rate,details
+dim_shops,VALIDITY,column names BigQuery-safe,15,0,15,1.0,
+dim_shops,COMPLETENESS,shop_id not null,161,0,161,1.0,
+dim_shops,COMPLETENESS,mobis_code not null,161,0,161,1.0,
+dim_shops,COMPLETENESS,shop_name not null,161,0,161,1.0,
+dim_shops,UNIQUENESS,shop_id unique,161,0,161,1.0,
+dim_shops,UNIQUENESS,mobis_code unique,161,0,161,1.0,
+dim_shops,VALIDITY,language values valid,161,0,161,1.0,
+fact_google_reviews,VALIDITY,column names BigQuery-safe,11,0,11,1.0,
+fact_google_reviews,COMPLETENESS,review_id not null,1815,0,1815,1.0,
+fact_google_reviews,COMPLETENESS,shop_id not null,1815,0,1815,1.0,
+fact_google_reviews,COMPLETENESS,rating not null,1812,3,1815,0.9983471074380166,3 null values
+fact_google_reviews,UNIQUENESS,review_id unique,1791,24,1815,0.9867768595041322,24 duplicate values
+fact_google_reviews,UNIQUENESS,shop_id FK valid,1815,0,1815,1.0,
+fact_google_reviews,VALIDITY,"rating in [1, 5]",1812,0,1812,1.0,
+fact_google_reviews,VALIDITY,"review_timestamp in [2025-01-01, 2025-12-31]",1782,30,1812,0.9834437086092715,30 out of range
+fact_google_reviews,CONSISTENCY,rating distribution varies,1812,0,1812,1.0,
+fact_google_reviews,CONSISTENCY,review_timestamp <= response_timestamp,1743,2,1745,0.9988538681948425,2 temporal violations
+fact_sms_surveys,VALIDITY,column names BigQuery-safe,17,0,17,1.0,
+fact_sms_surveys,COMPLETENESS,survey_id not null,5268,0,5268,1.0,
+fact_sms_surveys,COMPLETENESS,rating not null,5268,0,5268,1.0,
+fact_sms_surveys,UNIQUENESS,survey_id unique,5268,0,5268,1.0,
+fact_sms_surveys,UNIQUENESS,shop_id FK valid,3363,0,3363,1.0,
+fact_sms_surveys,VALIDITY,"rating in [1, 5]",5268,0,5268,1.0,
+fact_sms_surveys,VALIDITY,"interaction_date in [2025-01-01, 2025-12-31]",5268,0,5268,1.0,
+fact_sms_surveys,VALIDITY,"response_date in [2025-01-01, 2025-12-31]",5268,0,5268,1.0,
+fact_sms_surveys,CONSISTENCY,rating distribution varies,5268,0,5268,1.0,
+fact_sms_surveys,CONSISTENCY,interaction_date <= response_date,5268,0,5268,1.0,

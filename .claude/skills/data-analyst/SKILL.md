@@ -63,12 +63,13 @@ For each phase:
    - Use code patterns from `cookbook/{phase}/code.md`
 
 5. **PRODUCE OUTPUT**
-   - Write report to `ai-docs/data-{phase}-{project-slug}.md`
+   - Write report to `use-cases/{project}/docs/data-{phase}.md`
+   - If no project directory exists, use `ai-docs/data-{phase}-{project-slug}.md`
    - Include metadata, findings, and next steps
 
 ## Output Format
 
-All phase outputs go to `ai-docs/` with this structure:
+Phase outputs go to `use-cases/{project}/docs/` (or `ai-docs/` if no project dir):
 
 ```markdown
 ---
@@ -99,23 +100,25 @@ status: [complete|in-progress]
 
 ## State Management
 
-Phases build on each other:
+Phases build on each other. Outputs go to `use-cases/{project}/docs/`:
 
 ```
-/data-understand → ai-docs/data-understand-{project}.md
+/data-understand → use-cases/{project}/docs/data-understand.md
         ↓
-/data-explore reads previous, produces → ai-docs/data-explore-{project}.md
+/data-explore reads previous, produces → use-cases/{project}/docs/data-explore.md
         ↓
-/data-clean reads previous, produces → ai-docs/data-clean-{project}.md
+/data-clean reads previous, produces → use-cases/{project}/docs/data-clean.md
         ↓
-/data-validate reads previous, produces → ai-docs/data-validate-{project}.md
+/data-validate reads previous, produces → use-cases/{project}/docs/data-validate.md
         ↓
-/data-llm reads ALL previous, produces → ai-docs/data-llm-{project}.md
+/data-llm reads ALL previous, produces → use-cases/{project}/docs/data-llm.md
 ```
 
 If previous phase output exists, READ IT before proceeding.
 
 **Note**: `/data-llm` is a synthesis phase that reads ALL prior phases to produce a single context document.
+
+**Fallback**: If no `use-cases/{project}/` exists, output to `ai-docs/data-{phase}-{project}.md`.
 
 ## Cookbook Reference
 

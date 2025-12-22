@@ -1,0 +1,23 @@
+Dataset,Issue,Severity,Records,Action
+google_reviews,High missing: Key_Account_Manager_Email,Major,1829/1829,Consider drop or investigate
+google_reviews,High missing: Shop_Manager,Major,1829/1829,Consider drop or investigate
+google_reviews,High missing: Correction,Major,1828/1829,Consider drop or investigate
+google_reviews,High missing: Unnamed: 14,Major,1829/1829,Consider drop or investigate
+google_reviews,High missing: Unnamed: 15,Major,1829/1829,Consider drop or investigate
+google_reviews,High missing: Unnamed: 16,Major,1828/1829,Consider drop or investigate
+google_reviews,Empty column: Key_Account_Manager_Email,Minor,1829,Drop column
+google_reviews,Empty column: Shop_Manager,Minor,1829,Drop column
+google_reviews,Empty column: Unnamed: 14,Minor,1829,Drop column
+google_reviews,Empty column: Unnamed: 15,Minor,1829,Drop column
+sms_surveys,High missing: Verbatim,Major,4102/5268,Consider drop or investigate
+sms_surveys,High missing: SHOP_Case level 1,Major,3600/5268,Consider drop or investigate
+sms_surveys,High missing: SHOP_Case level 2,Major,3600/5268,Consider drop or investigate
+sms_surveys,High missing: SHOP_Case level 3,Major,3600/5268,Consider drop or investigate
+full_shop_infos,High missing: Type of own shop,Major,2129/2224,Consider drop or investigate
+full_shop_infos,High missing: External Partner code,Major,2144/2224,Consider drop or investigate
+full_shop_infos,High missing: Box,Major,1493/2224,Consider drop or investigate
+full_shop_infos,High missing: Shop manager name,Major,1886/2224,Consider drop or investigate
+full_shop_infos,High missing: Shop Manager/ private shop email,Major,1918/2224,Consider drop or investigate
+full_shop_infos,High missing: AREA,Major,2108/2224,Consider drop or investigate
+full_shop_infos,High missing: TSS manager,Major,1929/2224,Consider drop or investigate
+full_shop_infos,High missing: IAM - Language,Major,1599/2224,Consider drop or investigate
