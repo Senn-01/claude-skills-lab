@@ -20,7 +20,7 @@ Guide users through the professional data analysis lifecycle with emphasis on **
 
 ## Phases
 
-This skill covers the pre-ML phases of CRISP-DM:
+This skill covers the pre-ML phases of CRISP-DM, plus LLM context preparation:
 
 | Phase | Command | Purpose |
 |-------|---------|---------|
@@ -28,6 +28,7 @@ This skill covers the pre-ML phases of CRISP-DM:
 | 2. Data Understanding | `/data-explore` | Explore data to form hypotheses |
 | 3. Data Preparation | `/data-clean` | Transform raw data to analysis-ready |
 | 4. Quality Validation | `/data-validate` | Verify data meets quality standards |
+| 5. LLM Context | `/data-llm` | Prepare data context for AI/SQL agents |
 
 ## Workflow Routing
 
@@ -39,6 +40,7 @@ Determine which phase based on user request:
 - **explore**: "EDA", "explore", "analyze", "distribution", "correlation", "understand the data"
 - **clean**: "clean", "missing", "outlier", "duplicate", "prepare", "transform"
 - **validate**: "quality", "validate", "check", "verify", "threshold"
+- **llm**: "LLM context", "SQL agent", "prepare for AI", "agent context", "query documentation"
 
 ### Execution Pattern
 
@@ -107,9 +109,13 @@ Phases build on each other:
 /data-clean reads previous, produces → ai-docs/data-clean-{project}.md
         ↓
 /data-validate reads previous, produces → ai-docs/data-validate-{project}.md
+        ↓
+/data-llm reads ALL previous, produces → ai-docs/data-llm-{project}.md
 ```
 
 If previous phase output exists, READ IT before proceeding.
+
+**Note**: `/data-llm` is a synthesis phase that reads ALL prior phases to produce a single context document.
 
 ## Cookbook Reference
 
@@ -120,6 +126,7 @@ If previous phase output exists, READ IT before proceeding.
 | Explore | `cookbook/explore/why.md`, `techniques.md`, `checklist.md`, `code.md` |
 | Clean | `cookbook/clean/why.md`, `pipeline.md`, `strategies.md`, `code.md` |
 | Validate | `cookbook/validate/why.md`, `dimensions.md`, `thresholds.md`, `code.md` |
+| LLM | `cookbook/llm/why.md`, `schema.md`, `limits.md`, `queries.md`, `glossary.md`, `code.md`, `reference-bigquery.md` |
 
 ## Rules
 

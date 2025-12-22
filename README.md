@@ -170,22 +170,31 @@ Professional data analysis workflow with emphasis on WHY, not just HOW. Follows 
     │   ├── pipeline.md         # 7-step cleaning pipeline
     │   ├── strategies.md       # Missing/outlier/duplicate handling
     │   └── code.md
-    └── validate/               # Quality validation phase
-        ├── why.md
-        ├── dimensions.md       # 6 quality dimensions
-        ├── thresholds.md       # Pass/fail criteria
-        └── code.md
+    ├── validate/               # Quality validation phase
+    │   ├── why.md
+    │   ├── dimensions.md       # 6 quality dimensions
+    │   ├── thresholds.md       # Pass/fail criteria
+    │   └── code.md
+    └── llm/                    # LLM context preparation phase
+        ├── why.md              # Why LLM context matters
+        ├── schema.md           # Schema documentation patterns
+        ├── limits.md           # Data gaps documentation
+        ├── queries.md          # Query pattern templates
+        ├── glossary.md         # Domain vocabulary
+        ├── code.md             # Python schema extraction
+        └── reference-bigquery.md  # BigQuery loading gotchas
 ```
 
 **Triggers**: "data analysis", "analyze data", "EDA", "data cleaning", "data quality"
 
-**The 4 Phases**:
+**The 5 Phases**:
 | Phase | Command | Purpose |
 |-------|---------|---------|
 | 1. Business Understanding | `/data-understand` | Define the problem before touching data |
 | 2. Data Understanding | `/data-explore` | Explore data, form hypotheses |
 | 3. Data Preparation | `/data-clean` | Transform raw to analysis-ready |
 | 4. Quality Validation | `/data-validate` | Certify data meets standards |
+| 5. LLM Context | `/data-llm` | Prepare context for AI/SQL agents |
 
 **Philosophy**: Every step explains WHY before HOW. Outputs go to `ai-docs/data-{phase}-{project}.md`.
 
@@ -195,6 +204,7 @@ Professional data analysis workflow with emphasis on WHY, not just HOW. Follows 
 /data-explore sales.csv           # Run EDA
 /data-clean                       # Clean based on EDA findings
 /data-validate                    # Certify quality
+/data-llm customer-churn          # Prepare AI/SQL agent context
 ```
 
 ## Commands
@@ -210,10 +220,11 @@ Slash commands for common workflows:
 | `/commit [hint]` | Generate conventional commit, approve, optionally push |
 | `/ship [hint]` | Full workflow: handoff → README check → commit → push |
 | `/mcp` | Load MCP tool reference (Tavily, Context7 params + best practices) |
-| `/data-understand [project]` | Define business problem (phase 1/4) |
-| `/data-explore [file]` | Run EDA on dataset (phase 2/4) |
-| `/data-clean [file]` | Clean data based on EDA (phase 3/4) |
-| `/data-validate [file]` | Certify data quality (phase 4/4) |
+| `/data-understand [project]` | Define business problem (phase 1/5) |
+| `/data-explore [file]` | Run EDA on dataset (phase 2/5) |
+| `/data-clean [file]` | Clean data based on EDA (phase 3/5) |
+| `/data-validate [file]` | Certify data quality (phase 4/5) |
+| `/data-llm [project]` | Prepare LLM/SQL agent context (phase 5/5) |
 
 **Examples:**
 ```

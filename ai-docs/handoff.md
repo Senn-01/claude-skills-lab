@@ -1,13 +1,22 @@
 ---
-version: 0.9.0
+version: 0.10.0
 updated: 2025-12-22
-last-session: completed full data-analyst workflow on Orange CX Intelligence
+last-session: added /data-llm command (phase 5) for LLM/SQL agent context preparation
 rationale: |
-  Completed all 4 phases of data-analyst skill on real Orange Belgium customer feedback
-  data. Produced 3 BigQuery-ready tables (dim_shops, fact_google_reviews, fact_sms_surveys).
-  Discovered and solved multiple real-world data issues: MOBIS case mismatch, CSV multiline
-  parsing failures, incomplete shop master data. Data certified at 99.9% quality.
+  Extended data-analyst skill from 4 phases to 5. Added /data-llm command that synthesizes
+  all prior phases into a single context document for SQL agent injection. Created 7 cookbook
+  files covering schema, limits, queries, glossary, and code patterns. Tested on Orange CX
+  project, producing comprehensive data-llm-orange-cx-intelligence.md.
 changelog:
+  - version: 0.10.0
+    changes:
+      - Added /data-llm command (phase 5/5 of data-analyst workflow)
+      - Created 7 cookbook files in cookbook/llm/ (why, schema, limits, queries, glossary, code, reference-bigquery)
+      - Generated ai-docs/data-llm-orange-cx-intelligence.md for Orange CX project
+      - LLM context includes schema+semantics, data limits, query patterns, anti-patterns, glossary
+      - Added reference-bigquery.md to cookbook (CSV vs JSONL gotchas)
+      - Updated SKILL.md with phase 5 routing and cookbook reference
+      - Updated README.md with 5-phase workflow and /data-llm command
   - version: 0.9.0
     changes:
       - Completed full 4-phase data-analyst workflow (understand → explore → clean → validate)
@@ -105,26 +114,36 @@ changelog:
 
 ## Now
 
-v0.9.0 - **Completed full data-analyst workflow** on Orange CX Intelligence. All 4 phases done:
+v0.10.0 - **Added /data-llm command** (phase 5/5 of data-analyst workflow).
+
+| What | Details |
+|------|---------|
+| New command | `/data-llm [project]` |
+| Purpose | Synthesize all prior phases into single LLM context document |
+| Output | `ai-docs/data-llm-{project}.md` |
+| Cookbook files | 7 new files in `cookbook/llm/` |
+
+**Tested on Orange CX project**: Generated comprehensive `data-llm-orange-cx-intelligence.md` with schema, limits, query patterns, anti-patterns, and glossary.
+
+### The 5-Phase Workflow (Complete)
 
 | Phase | Output | Key Finding |
 |-------|--------|-------------|
-| /data-understand | Business context, star schema design | "Clean Sheets" approach (restructure source, not transform layer) |
-| /data-explore | EDA report, quality issues | 37.5% shops CLOSED (filter out), 78% verbatims empty |
-| /data-clean | 3 clean tables (dim_shops, fact_google_reviews, fact_sms_surveys) | MOBIS case mismatch fixed, language inferred from zip |
-| /data-validate | Quality certificate (99.9%) | 24 dupe review_ids, 3 null ratings documented |
-
-**Tables ready for BigQuery** (JSONL format - CSV had multiline parsing issues).
+| /data-understand | Business context, star schema design | "Clean Sheets" approach |
+| /data-explore | EDA report, quality issues | 37.5% shops CLOSED, 78% verbatims empty |
+| /data-clean | 3 clean tables | MOBIS case fixed, language inferred from zip |
+| /data-validate | Quality certificate (99.9%) | 24 dupe review_ids, 3 null ratings |
+| /data-llm | **NEW** LLM context document | Schema+semantics, limits, query patterns, glossary |
 
 ## Data Analyst Methodology (Proven on Orange CX)
 
-### The 4-Phase Workflow
+### The 5-Phase Workflow
 
 ```
-/data-understand → /data-explore → /data-clean → /data-validate
-      ↓                 ↓                ↓              ↓
-   Problem           EDA report      Clean tables   Certificate
-   definition        + issues        + scripts      + gate
+/data-understand → /data-explore → /data-clean → /data-validate → /data-llm
+      ↓                 ↓                ↓              ↓              ↓
+   Problem           EDA report      Clean tables   Certificate    LLM Context
+   definition        + issues        + scripts      + gate         for SQL Agent
 ```
 
 ### Key Principles
@@ -136,6 +155,8 @@ v0.9.0 - **Completed full data-analyst workflow** on Orange CX Intelligence. All
 | **Conservative cleaning** | Flag rather than delete when uncertain |
 | **Validation gate** | 95% threshold per dimension blocks bad data |
 | **Full audit trail** | Every operation logged with before/after counts |
+| **LLM context is synthesis** | Phase 5 reads ALL prior phases, produces single doc |
+| **Limits are first-class** | Agent must know what it CANNOT answer |
 
 ### Output Structure
 
@@ -144,7 +165,8 @@ ai-docs/
 ├── data-understand-{project}.md   # Business context
 ├── data-explore-{project}.md      # EDA findings
 ├── data-clean-{project}.md        # Cleaning decisions
-└── data-validate-{project}.md     # Quality certificate
+├── data-validate-{project}.md     # Quality certificate
+└── data-llm-{project}.md          # LLM context (for SQL agent injection)
 
 cases/{project}/
 ├── eda_{project}.py               # EDA script
@@ -224,6 +246,11 @@ shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
 
 ## Decisions
 
+- **5-phase workflow** - Added /data-llm as synthesis phase after validation
+- **Single context document** - All LLM context in one file for easy injection
+- **Limits as first-class** - Agent must know boundaries before generating SQL
+- **Anti-patterns required** - Every context doc must show what NOT to do
+- **Glossary maps to SQL** - Business term → exact SQL for agent translation
 - **LangSmith tracing via Stop hook** - Observability layer for Claude Code sessions
 - **Env var control** - TRACE_TO_LANGSMITH=true enables, CC_LANGSMITH_API_KEY for auth
 - **Description is PRIMARY trigger** - Front-load first 100 chars, use action verbs
@@ -260,6 +287,8 @@ shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
 - Description length impacts activation accuracy
 
 ### Data Analyst Specific
+- **/data-llm reads ALL prior phases** → must run after validate for complete context
+- **LLM context is for injection** → single self-contained doc, no external refs
 - **CSV multiline fields break BigQuery** → use JSONL format
 - **MOBIS codes may have case variance** → always normalize to uppercase
 - **Shop master data often incomplete** → design for NULL foreign keys
@@ -275,13 +304,16 @@ shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
 - [x] Complete /data-clean phase for Orange CX project
 - [x] Complete /data-validate phase for Orange CX project
 - [x] Export to JSONL for BigQuery (CSV had multiline issues)
-- [ ] **Create `/data-llm` command** - Prepare LLM to understand data structure
-  - Generate schema documentation for SQL agent
-  - Include: table relationships, column meanings, join keys
-  - Include: known data gaps (28 unmapped MOBIS, 36% SMS unlinked)
-  - Include: query patterns (time filtering, shop aggregation)
-  - Output: `ai-docs/data-llm-{project}.md` for agent context injection
+- [x] **Create `/data-llm` command** - Prepare LLM to understand data structure
+  - [x] Generate schema documentation for SQL agent
+  - [x] Include: table relationships, column meanings, join keys
+  - [x] Include: known data gaps (28 unmapped MOBIS, 36% SMS unlinked)
+  - [x] Include: query patterns (time filtering, shop aggregation)
+  - [x] Output: `ai-docs/data-llm-{project}.md` for agent context injection
+  - [x] 7 cookbook files in `cookbook/llm/`
+  - [x] reference-bigquery.md added to cookbook
 - [ ] Load JSONL files to BigQuery and test queries
+- [ ] **Inject data-llm doc into SQL agent** and test query generation
 - [ ] Add data-analyst to examples/repo-template/
 - [ ] Test repo-template in fresh repo
 - [ ] Add skill activation hook (P0 from retrospective)
