@@ -1,13 +1,22 @@
 ---
-version: 0.11.0
-updated: 2025-12-22
-last-session: rebranded to Dev-0's Lab + restructured repo (use-cases/, init-cc-repo)
+version: 0.12.0
+updated: 2025-12-23
+last-session: plugin ecosystem + agent SDK research (Claude Agent SDK vs LangChain/LangGraph)
 rationale: |
-  Rebranded from "Claude Skills Lab" to "Dev-0's Lab" — personal workspace for AI agent
-  development. Restructured repo: examples/ → use-cases/, repo-template → init-cc-repo,
-  research moved to use-cases/research/. Updated data-analyst skill to output to project
-  directories (use-cases/{project}/docs/) instead of ai-docs/.
+  Exploring Claude Code plugin ecosystem and agent frameworks. Two major outputs:
+  1. Plugin catalog (50 plugins from claude-plugins-official + superpowers)
+  2. Deep research: Claude Agent SDK vs LangChain/LangGraph comparison
+  Key insight: They are complementary, not competitive. MCP unifies them.
 changelog:
+  - version: 0.12.0
+    changes:
+      - Cataloged 50 plugins from claude-plugins-official (36) and superpowers (14)
+      - Created ai-docs/plugins-experiment.md with full catalog and 4-tier ranking
+      - Created ai-docs/research-agent-sdk-vs-langchain.md (deep comparison)
+      - Researched SDK auth (Max subscription works), updates (tied to CC), multimodal (images yes, audio/video no)
+      - Added Agent Framework Exploration plan to Next section
+      - Marked orange-cx-intelligence-agent and algorithmic-art as complete
+      - Compared skill-creator (ours) vs writing-skills (superpowers) methodologies
   - version: 0.11.0
     changes:
       - Rebranded to "Dev-0's Lab" (personal workspace, not just learning)
@@ -122,33 +131,36 @@ changelog:
 
 ## Now
 
-v0.11.0 - **Rebranded to Dev-0's Lab** + restructured repository.
+v0.12.0 - **Plugin Ecosystem Exploration** — cataloged 50 plugins from 2 marketplaces.
 
-| Change | Before | After |
-|--------|--------|-------|
-| Name | Claude Skills Lab | Dev-0's Lab |
-| examples/ | Static demos | use-cases/ (active projects) |
-| repo-template | Passive template | init-cc-repo (action-oriented) |
-| research | ai-docs/research-*.md | use-cases/research/ |
-| DA outputs | ai-docs/data-*.md | use-cases/{project}/docs/ |
+### Plugin Sources
 
-### Structure Philosophy
+| Source | Count | Focus |
+|--------|-------|-------|
+| [claude-plugins-official](https://github.com/anthropics/claude-plugins-official) | 36 | Core dev tools, LSPs, external integrations |
+| [superpowers](https://github.com/obra/superpowers) | 14 | Development methodology (TDD, debugging, planning) |
 
-```
-.claude/     = The TOOLS (skills, commands)
-ai-docs/     = The CONTEXT (handoff for LLM, notes for human)
-use-cases/   = The OUTPUTS (projects, research, templates)
-```
+### S-Tier Plugins (Essential)
 
-### The 5-Phase Workflow (Complete)
+| Plugin | Source | Why |
+|--------|--------|-----|
+| **feature-dev** | official | 7-phase structured workflow with parallel agents |
+| **code-review** | official | Automated PR review with confidence scoring |
+| **test-driven-development** | superpowers | RED-GREEN-REFACTOR discipline |
+| **systematic-debugging** | superpowers | 4-phase root cause investigation |
+| **plugin-dev** | official | Comprehensive plugin building toolkit |
+| **github** | external | GitHub API integration |
+| **playwright** | external | Browser automation |
 
-| Phase | Output | Key Finding |
-|-------|--------|-------------|
-| /data-understand | Business context, star schema design | "Clean Sheets" approach |
-| /data-explore | EDA report, quality issues | 37.5% shops CLOSED, 78% verbatims empty |
-| /data-clean | 3 clean tables | MOBIS case fixed, language inferred from zip |
-| /data-validate | Quality certificate (99.9%) | 24 dupe review_ids, 3 null ratings |
-| /data-llm | LLM context document | Schema+semantics, limits, query patterns, glossary |
+### Use-Cases Status
+
+| Project | Status | Notes |
+|---------|--------|-------|
+| orange-cx-intelligence-agent | **COMPLETE** | 5-phase workflow, 99.9% quality, 3 BigQuery tables |
+| algorithmic-art | **COMPLETE** | Neural Bloom experiment done |
+| init-cc-repo | **ACTIVE** | Will use for plugin experimentation |
+
+See full catalog: `ai-docs/plugins-experiment.md`
 
 ## Data Analyst Methodology (Proven on Orange CX)
 
@@ -285,6 +297,10 @@ shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
 - **ULTRATHINK for strategy** - Deep reasoning with backpropagation
 - **Lowercase skill names** - Official spec: lowercase, numbers, hyphens only
 - **JSONL over CSV for BigQuery** - Multiline text fields break CSV parsing
+- **Plugin ranking by 4 dimensions** - Impact (35%), Universality (25%), Maturity (25%), Uniqueness (15%)
+- **S-Tier for essential plugins** - feature-dev, code-review, TDD, debugging, plugin-dev
+- **Two plugin sources** - Official (Anthropic) for tools, Superpowers (obra) for methodology
+- **Test on init-cc-repo** - Use existing starter kit as plugin experimentation ground
 
 ## Gotchas
 
@@ -314,18 +330,61 @@ shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
 - **Validation gate catches cleaning misses** → 24 dupes, 3 nulls found post-clean
 - **Temporal validation needs UTC** → `pd.to_datetime(..., utc=True)` for tz-aware comparison
 
+### Plugin Ecosystem (To Verify)
+- **Plugin install syntax** → `/plugin install {name}@{source}` (TBD)
+- **Multiple LSPs** → Unknown if they conflict
+- **Performance impact** → Many plugins may slow down Claude Code
+- **Superpowers installation** → Different from official (clone repo?)
+- **MCP latency** → External plugins may add network overhead
+- **Plugin conflicts** → Skills vs commands vs agents priority unclear
+
 ## Next
 
+### Agent Framework Exploration (Current Focus)
+
+**Goal:** Compare Claude Agent SDK vs LangChain/LangGraph by building agents with both.
+
+| Step | Action | Output |
+|------|--------|--------|
+| 1 | Create LangChain/LangGraph skill | `.claude/skills/langchain-dev/` |
+| 2 | Build agent with Claude Agent SDK | `use-cases/agent-sdk-test/` |
+| 3 | Build same agent with LangGraph | `use-cases/langgraph-test/` |
+| 4 | Compare: boilerplate, debugging, DX | `ai-docs/research-agent-sdk-vs-langchain.md` (update) |
+
+**Skill Creation Approach:**
+- Use superpowers `writing-skills` methodology (TDD for skills)
+- Already have `agent-sdk-dev` plugin installed
+- Need to create `langchain-dev` skill for parity
+
+**Resources:**
+- `ai-docs/research-agent-sdk-vs-langchain.md` — Deep comparison doc
+- `ai-docs/plugins-experiment.md` — Plugin catalog
+- superpowers `writing-skills` — TDD for skill creation
+
+### Plugin Experimentation (Paused)
+- [ ] Install Phase 1 plugins (feature-dev, code-review, TDD, debugging, plugin-dev)
+- [ ] Test feature-dev workflow on init-cc-repo
+- [ ] Compare code-review vs pr-review-toolkit
+- [ ] Document plugin installation gotchas
+- [ ] Evaluate superpowers vs official methodology
+
+### Backlog
+- [ ] Load JSONL files to BigQuery and test queries
+- [ ] Inject data-llm doc into SQL agent and test query generation
+- [ ] Add data-analyst to init-cc-repo
+- [ ] Test init-cc-repo in fresh repo
+- [ ] Add skill activation hook (P0 from retrospective)
+- [ ] Consider global installation `~/.claude/skills/`
+- [ ] Rename GitHub repo to dev-0-lab (optional)
+
+### Completed
 - [x] Test data-analyst skill on real dataset (Orange CX Intelligence)
 - [x] Complete full 5-phase workflow (understand → explore → clean → validate → llm)
 - [x] Create `/data-llm` command with 7 cookbook files
 - [x] Rebrand to Dev-0's Lab
 - [x] Restructure: examples/ → use-cases/, repo-template → init-cc-repo
 - [x] Update data-analyst output paths to use-cases/{project}/docs/
-- [ ] Load JSONL files to BigQuery and test queries
-- [ ] **Inject data-llm doc into SQL agent** and test query generation
-- [ ] Add data-analyst to init-cc-repo
-- [ ] Test init-cc-repo in fresh repo
-- [ ] Add skill activation hook (P0 from retrospective)
-- [ ] Consider global installation `~/.claude/skills/`
-- [ ] Rename GitHub repo to dev-0-lab (optional)
+- [x] Catalog plugin ecosystem (50 plugins from 2 sources)
+- [x] Create ai-docs/plugins-experiment.md with ranking system
+- [x] Deep research: Claude Agent SDK vs LangChain/LangGraph comparison
+- [x] Create ai-docs/research-agent-sdk-vs-langchain.md
