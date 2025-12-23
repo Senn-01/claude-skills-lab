@@ -1,9 +1,16 @@
 ---
 description: Eugene - Voice-first GTD command center with LangGraph supervisor routing multimodal captures to structured inbox, projects, and journal
-version: 0.1.0
+version: 0.2.0
 status: design
 created: 2025-12-23
 changelog:
+  - version: 0.2.0
+    date: 2025-12-23
+    changes:
+      - Added competitive analysis (Things 3, Notion, Saner.AI, Linear)
+      - Defined unique positioning and differentiators
+      - Added design decisions informed by research
+      - Clarified agent-as-interface philosophy
   - version: 0.1.0
     date: 2025-12-23
     changes:
@@ -12,7 +19,8 @@ changelog:
       - Data model specified (inbox, project, journal, trends)
       - Voice pipeline designed (STT → Agent → TTS)
       - Tech stack selected (FastAPI, LangGraph, PostgreSQL, React)
-linked_files: []
+linked_files:
+  - docs/plans/2025-12-23-eugene-competitive-analysis.md
 ---
 
 # Eugene: Personal Command Center
@@ -597,6 +605,58 @@ Execute in sequence. Each phase delivers working functionality.
 
 ---
 
+## Competitive Positioning
+
+See full analysis: `docs/plans/2025-12-23-eugene-competitive-analysis.md`
+
+### Philosophy
+
+> "Software-as-a-Service platforms that force users to click through slow UIs will be disrupted by agents that interact with the database/API directly."
+
+> "The best UIs will become prompt interfaces where the user states an intent, and a swarm of agents executes the CRUD operations in the background."
+
+### What We Learn From
+
+| Product | Key Lesson | Eugene Implementation |
+|---------|------------|----------------------|
+| **Things 3** | GTD methodology, temporal buckets, review ritual | Inbox → Today → Someday → Archive flow |
+| **Notion** | Relational data, multiple views, typed properties | Inbox ↔ Project ↔ Journal relations |
+| **Saner.AI** | Voice-to-task, morning planning, ADHD-friendly | Voice capture, agent suggestions, minimal UI |
+| **Linear** | Speed obsession, keyboard-first, visual polish | <200ms interactions, Cmd+K, retrofuturism |
+
+### Our Unique Edge
+
+| Gap in Market | Eugene's Solution |
+|---------------|-------------------|
+| Capture requires opening an app | Telegram — already on your phone |
+| Categorization requires thinking | Agent suggests, user confirms |
+| Review is a chore | Voice-driven sorting |
+| Productivity apps are generic | GTD + cost/benefit matrix |
+| AI assistants are stateless | PostgreSQL + checkpoints = memory |
+| Modern apps are visually bland | Retrofuturism CRT aesthetic |
+
+### The Tagline
+
+> **"State your intent. Eugene handles the rest."**
+
+### The Disruption
+
+```
+TRADITIONAL APP          EUGENE
+───────────────          ──────
+Open app                 "Hey Eugene..."
+Navigate to inbox        (automatic)
+Click new task           "...add to braindump:
+Fill out form            meeting with Sarah about Q1"
+Select project           (agent suggests)
+Add tags                 (agent extracts)
+Click save               (automatic)
+───────────────          ──────
+6 steps                  1 sentence
+```
+
+---
+
 ## References
 
 | Resource | URL |
@@ -608,3 +668,7 @@ Execute in sequence. Each phase delivers working functionality.
 | FastAPI | https://fastapi.tiangolo.com |
 | TanStack Query | https://tanstack.com/query |
 | Telegram Bot API | https://core.telegram.org/bots/api |
+| Things 3 GTD Guide | https://culturedcode.com/things/guide/ |
+| Notion Database Docs | https://www.notion.com/help/database-properties |
+| Saner.AI | https://www.saner.ai |
+| Linear App | https://linear.app |
