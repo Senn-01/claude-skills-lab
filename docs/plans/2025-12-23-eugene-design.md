@@ -1,9 +1,17 @@
 ---
 description: Eugene - Voice-first GTD command center with LangGraph supervisor routing multimodal captures to structured inbox, projects, and journal
-version: 0.2.0
+version: 0.3.0
 status: design
 created: 2025-12-23
 changelog:
+  - version: 0.3.0
+    date: 2025-12-23
+    changes:
+      - Refined project philosophy (strategic commitment model)
+      - Added category taxonomy (WORK/LEARN/BUILD/MANAGE)
+      - Added priority, due_date, mandatory fields
+      - Added why and done_looks_like for clarity
+      - Documented post-MVP urgency visualization vision
   - version: 0.2.0
     date: 2025-12-23
     changes:
@@ -170,20 +178,60 @@ Captures all incoming data before user sorts.
 
 ### project
 
-User-promoted items for tracking and prioritization.
+User-promoted items for strategic tracking and prioritization.
+
+**Philosophy:** A project is a conscious commitment to invest limited resources toward a specific outcome, classified by life domain, and evaluated by cost/benefit ratio.
 
 | Column | Type | Description |
 |--------|------|-------------|
 | id | UUID | Primary key |
 | name | TEXT | Project title |
 | description | TEXT | Project details |
+| why | TEXT | One sentence: why this matters |
+| done_looks_like | TEXT | Completion criteria |
+| category | ENUM | `WORK`, `LEARN`, `BUILD`, `MANAGE` (life domain) |
+| tags | TEXT[] | Flexible cross-cutting labels |
 | cost | INT (1-5) | Effort/complexity score |
 | benefit | INT (1-5) | Value/impact score |
+| priority | ENUM | `P0`, `P1`, `P2`, `P3` (urgency × importance) |
+| due_date | DATE? | Hard deadline (NULL = no deadline) |
+| mandatory | BOOLEAN | Can't drop even if ROI is bad |
 | status | ENUM | `active`, `someday`, `done`, `dropped` |
 | created_at | TIMESTAMP | Creation timestamp |
 | updated_at | TIMESTAMP | Last modification |
 
-**Cost/Benefit Matrix:** `benefit / cost` ratio determines quadrant placement.
+**Categories (Life Domains):**
+
+| Category | Purpose | Example |
+|----------|---------|---------|
+| WORK | Professional obligations | Client deliverables, reports |
+| LEARN | Skill development | Courses, books, certifications |
+| BUILD | Creative output | Side projects, apps, art |
+| MANAGE | Life administration | Health, finance, admin |
+
+**Cost/Benefit Matrix:** Projects plotted by strategic value. X-axis = cost, Y-axis = benefit.
+
+```
+         HIGH BENEFIT
+              │
+    QUICK     │    MAJOR
+    WINS      │    PROJECTS
+              │
+──────────────┼──────────────
+              │
+    FILL      │    RECONSIDER
+    TIME      │
+              │
+         LOW BENEFIT
+
+       LOW COST ──────── HIGH COST
+```
+
+**Post-MVP Vision (Urgency Visualization):**
+- 🔴 Pulsing indicator when due date approaches
+- ⚡ Glow effect for high priority (P0/P1)
+- 🔒 Badge for mandatory projects
+- Visual urgency overlays on matrix without cluttering strategic view
 
 ### journal_note
 
@@ -446,15 +494,17 @@ User                          Eugene
 
 ### Excluded (Post-MVP)
 
-| Feature | Target Version |
-|---------|----------------|
-| Voice on web (full pipeline) | v0.2 |
-| Cost/benefit matrix view | v0.2 |
-| Journal agent + semantic search | v0.2 |
-| Time-boxing / scheduling | v0.3 |
-| macOS reminders integration | v0.3 |
-| Push to external tools (Notion, Todoist) | v0.3 |
-| Advanced analytics | v0.4 |
+| Feature | Target Version | Notes |
+|---------|----------------|-------|
+| Voice on web (full pipeline) | v0.2 | STT → Agent → TTS |
+| Cost/benefit matrix view | v0.2 | Strategic project visualization |
+| Journal agent + semantic search | v0.2 | Embeddings, retrieval |
+| Urgency visualization | v0.3 | Pulsing due dates, priority glow |
+| Time tracking | v0.3 | Start/stop timer, log time per project |
+| Time-boxing / scheduling | v0.3 | Block time for projects |
+| macOS reminders integration | v0.3 | osascript alarms |
+| Push to external tools (Notion, Todoist) | v0.4 | Sync selected items |
+| Advanced analytics | v0.4 | Trends, patterns, insights |
 
 ---
 

@@ -1,8 +1,19 @@
 ---
-version: 0.12.1
+version: 0.13.0
 updated: 2025-12-23
-last-session: LangGraph skill TDD baseline test (inconclusive) + superpowers methodology exploration
+last-session: Eugene project brainstorming — testing superpowers:brainstorming workflow
+rationale: New project (Eugene) started — testing superpowers:brainstorming skill on real project
 changelog:
+  - version: 0.13.0
+    changes:
+      - Started Eugene project design (voice-first GTD command center)
+      - Testing superpowers:brainstorming skill workflow on real project
+      - Architecture doc with LangGraph supervisor pattern (in progress)
+      - Competitive analysis (Things 3, Notion, Saner.AI, Linear)
+      - Project philosophy defined (WORK/LEARN/BUILD/MANAGE categories)
+      - Tech stack selected (FastAPI, LangGraph, PostgreSQL, React, Telegram)
+      - Retro-futuristic CRT aesthetic chosen
+      - Tagline: "State your intent. Eugene handles the rest."
   - version: 0.12.1
     changes:
       - Tested superpowers:writing-skills TDD methodology for skill creation
@@ -361,32 +372,43 @@ shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
 
 ## Next
 
-### Agent Framework Exploration (Current Focus)
+### Eugene Project (Current Focus)
 
-**Goal:** Compare Claude Agent SDK vs LangChain/LangGraph by building agents with both.
+**Goal:** Build voice-first GTD command center with LangGraph supervisor architecture.
 
-**Current Status:**
-- [x] Baseline test: Claude can build LangGraph agents from memory
-- [ ] Decide: Is a langchain-dev skill needed? (Options below)
-- [ ] Build agent with Claude Agent SDK
-- [ ] Build same agent with LangGraph
-- [ ] Compare: boilerplate, debugging, DX
+**Status:** Design in progress (v0.3.0). Brainstorming phase.
 
-**Langchain-dev Skill Options:**
+**Meta-goal:** Testing `superpowers:brainstorming` skill workflow on a real project.
 
-| Option | Description |
-|--------|-------------|
-| **A. No skill** | Baseline passed, Claude knows LangGraph basics |
-| **B. Quality skill** | Best practices, security, real tool integration |
-| **C. Advanced patterns** | Human-in-the-loop, multi-agent, complex graphs |
-| **D. Process discipline** | "Always use MCP docs first, not training memory" |
-| **E. Harder tests** | Test edge cases that might reveal knowledge gaps |
+**Design Docs:**
+- `docs/plans/2025-12-23-eugene-design.md` — Full architecture
+- `docs/plans/2025-12-23-eugene-competitive-analysis.md` — Market research
+
+**Implementation Phases:**
+
+| Phase | Deliverable | Status |
+|-------|-------------|--------|
+| 1. Backend Foundation | FastAPI + PostgreSQL CRUD | Not started |
+| 2. Telegram Capture | Voice messages → inbox items | Not started |
+| 3. LangGraph Supervisor | Intent routing to agents | Not started |
+| 4. Web Frontend | React + Retro-futuristic UI | Not started |
+| 5. Voice on Web | STT → Agent → TTS pipeline | Not started |
+
+**Key Decisions Made:**
+- Telegram bot for mobile capture (zero friction)
+- Cost/benefit matrix as core strategic view
+- Categories: WORK / LEARN / BUILD / MANAGE
+- Retro-futuristic CRT aesthetic
+- LangGraph supervisor with specialized sub-agents
+
+### Agent Framework Exploration (Paused)
+
+Paused in favor of building Eugene (which uses LangGraph).
 
 **Resources:**
 - `ai-docs/research-agent-sdk-vs-langchain.md` — Deep comparison doc
 - `ai-docs/plugins-experiment.md` — Plugin catalog (50 plugins)
 - `use-cases/langgraph-baseline-tests/` — Baseline test outputs
-- superpowers `writing-skills` — TDD methodology for skills
 
 ### Plugin Experimentation (Paused)
 - [ ] Install Phase 1 plugins (feature-dev, code-review, TDD, debugging, plugin-dev)
