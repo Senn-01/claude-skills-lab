@@ -1,6 +1,6 @@
 ---
-version: 0.1.0
-updated: 2025-12-23
+version: 0.2.0
+updated: 2025-12-24
 rationale: |
   Experimenting with Claude Code plugin ecosystem. Two marketplaces analyzed:
   - anthropics/claude-plugins-official (Anthropic's official directory)
@@ -15,6 +15,12 @@ sources:
     name: Superpowers
     skills: 14
 changelog:
+  - version: 0.2.0
+    changes:
+      - Added Test Results section with detailed findings
+      - Tested superpowers:brainstorming on Eugene project (inconclusive)
+      - Added Gotchas & Lessons Learned section
+      - Defined testing methodology for future experiments
   - version: 0.1.0
     changes:
       - Initial catalog of 50 plugins/skills from both sources
@@ -252,6 +258,59 @@ Security guidance and validation.
 | Date | Plugin | Status | Notes |
 |------|--------|--------|-------|
 | 2025-12-23 | - | Setup | Initial catalog created |
+| 2025-12-24 | superpowers:brainstorming | Tested | Eugene project design (inconclusive) |
+
+---
+
+## Test Results
+
+### superpowers:brainstorming (2025-12-24)
+
+| Dimension | Observation |
+|-----------|-------------|
+| **Task** | Eugene — voice-first GTD command center design |
+| **Duration** | ~2 hours conversation |
+| **Output** | `use-cases/langgraph-test-brainstorm-command/` |
+| **Result** | **Inconclusive** |
+
+**What worked:**
+- One question at a time forced design clarity
+- Structured progression (problem → solution → architecture → data model)
+- Generated comprehensive design doc with competitive analysis
+- Good for exploring unfamiliar problem space
+
+**What's unclear:**
+- Would direct conversation produce same quality faster?
+- Skill overhead vs. value added not measured
+- No baseline to compare against (same task without skill)
+
+**What didn't work:**
+- Output location not specified by skill (had to decide where to save)
+- Session got long — unclear when "brainstorming" ends vs. "planning" begins
+- Skill doesn't handle interruptions well (user wanted to add features mid-flow)
+
+**Verdict:** Need comparison test — same complexity task WITHOUT skill to measure difference.
+
+---
+
+## Gotchas & Lessons Learned
+
+### Superpowers Skills (General)
+
+| Insight | Detail |
+|---------|--------|
+| **Inconclusive ≠ bad** | Need baseline comparison to evaluate value |
+| **One question at a time** | Good for clarity, potentially slow for experts |
+| **Output location unclear** | Skills don't specify where artifacts should live |
+| **Session context matters** | Same skill may behave differently based on prior conversation |
+| **Skill boundaries fuzzy** | When does brainstorming end and planning begin? |
+
+### Testing Methodology
+
+- **Always save outputs** to `use-cases/{test-name}/` for reference
+- **Note duration** to compare efficiency later
+- **Run baseline test** (same task, no skill) for fair comparison
+- **Track interruptions** — how well does skill handle user tangents?
 
 ---
 

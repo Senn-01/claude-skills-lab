@@ -48,22 +48,19 @@ The cost/benefit scoring normalizes projects of any scale. A quick win (cost:2, 
 
 ---
 
-### Session
+### Time-boxed Session
 
 **User-facing definition:**
-> A time-boxed block of focused work on a specific project. You commit before starting, then reflect after finishing.
+> A time-boxed block of work on a specific project.
 
 **System definition:**
 A session is an entity that:
 - Belongs to one user and one project
-- Has a planned duration (pre-commitment)
-- Has an actual duration (reality)
+- Has a planned duration (pre-commitment) and an actual duration (reality)
 - Has a status lifecycle: `planned` → `active` → `completed` | `abandoned`
-- Captures self-assessed quality (1-5) on completion
-- Optionally includes a goal (intent) and notes (reflection)
 
 **Design rationale:**
-Sessions are the raw data for performance intelligence. Every session logged is a data point: time spent, on what, with what quality, achieving what goal. Patterns emerge from aggregation.
+Time-boxed Sessions are the raw data for performance intelligence. Every session logged is a data point: time spent, on what, with what quality, achieving what goal. Patterns emerge from aggregation. **important caveat** : User won't necessarily log all work as time-boxed or in the app. So future analytics should refer that user has x time-boxed sessions on x project, not consider that it is an exhaustive list.
 
 ---
 
