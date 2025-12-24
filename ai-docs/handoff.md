@@ -1,8 +1,14 @@
 ---
-version: 0.13.1
+version: 0.13.2
 updated: 2025-12-24
-last-session: Concluded superpowers:brainstorming test — results in plugins-experiment.md
+last-session: Cleaned handoff — removed case-specific content, added use-case documentation policy
 changelog:
+  - version: 0.13.2
+    changes:
+      - Removed Orange CX painpoints (moved to use-case)
+      - Cleaned Now section (details in plugins-experiment.md)
+      - Slimmed Data Analyst gotchas (kept methodology, removed case-specific)
+      - Added Use-Case Documentation Policy
   - version: 0.13.1
     changes:
       - Concluded superpowers:brainstorming test (inconclusive)
@@ -147,47 +153,18 @@ changelog:
 
 ## Now
 
-v0.12.1 - **Agent Framework Exploration** — testing TDD methodology for skill creation.
+v0.13.1 — **Plugin Evaluation** — testing superpowers methodology.
 
-### LangGraph Skill Baseline Test (Inconclusive)
+See `ai-docs/plugins-experiment.md` for detailed tracking and test results.
 
-Tested `superpowers:writing-skills` TDD methodology to see if a `langchain-dev` skill is needed:
+### Active Experiments
 
-| Scenario | Result | Observation |
-|----------|--------|-------------|
-| ReAct agent with tools | ✅ PASS | Correct patterns, working code |
-| Multi-step branching workflow | ✅ PASS | Conditional edges, routing logic |
-| Stateful agent with memory | ✅ PASS | Checkpointing, thread isolation |
+| Test | Skill | Result | Output |
+|------|-------|--------|--------|
+| LangGraph agents | writing-skills | Inconclusive | `use-cases/langgraph-baseline-tests/` |
+| Eugene design | brainstorming | Inconclusive | `use-cases/langgraph-test-brainstorm-command/` |
 
-**Finding:** Claude built working LangGraph agents from training knowledge alone.
-
-**What this means:**
-- Claude already knows LangGraph basics (pre-Jan 2025 knowledge)
-- BUT: didn't use MCP docs for current API (may be outdated)
-- A skill might teach **process discipline** ("always check docs first") not technique
-- Need harder pressure tests or focus on quality/best-practices
-
-Baseline outputs: `use-cases/langgraph-baseline-tests/`
-
-### Available MCP Tools
-
-| Tool | Purpose |
-|------|---------|
-| `mcp__context7__*` | Library documentation lookup |
-| `mcp__tavily__*` | Web search and content extraction |
-| `mcp__docs-langchain__SearchDocsByLangChain` | LangChain/LangGraph docs search |
-| `mcp__ide__*` | VS Code diagnostics, Jupyter execution |
-| `mcp__private-journal__*` | Technical insights journal |
-
-### Plugin Catalog
-
-See full catalog: `ai-docs/plugins-experiment.md` (50 plugins, 4-tier ranking)
-
-| Source | Count | Focus |
-|--------|-------|-------|
-| claude-plugins-official | 36 | Core dev tools, LSPs, integrations |
-| superpowers | 14 | Development methodology |
-| elements-of-style | 1 | Writing quality (NEW) |
+**Next:** Baseline comparison (same task, no skill).
 
 ## Data Analyst Methodology (Proven on Orange CX)
 
@@ -232,68 +209,18 @@ use-cases/{project}/
 
 ---
 
-## Painpoints & Solutions (Orange CX Case Study)
+## Use-Case Documentation Policy
 
-### Painpoint 1: MOBIS Code Case Mismatch
+Each use-case should have its own `implementation-log.md`:
 
-**Problem**: id_business had `mobis467` (lowercase), SMS had `MOBIS467` (uppercase). Join only matched 30%.
-
-**Solution**: Normalize to uppercase in cleaning script.
-```python
-dim_shops['mobis_code'] = dim_shops['mobis_code'].str.upper()
 ```
-**Result**: Join improved from 30% → 64%.
-
----
-
-### Painpoint 2: CSV Multiline Text Breaks BigQuery
-
-**Problem**: Google Reviews verbatim field had embedded `\n` newlines. BigQuery CSV parser error: "too many errors, giving up".
-
-**Solution**: Export as JSONL (JSON Lines) instead of CSV.
-```python
-df.to_json('table.jsonl', orient='records', lines=True)
+use-cases/{project}/
+├── implementation-log.md    # Painpoints, solutions, learnings
+├── docs/                    # Phase outputs
+└── ...                      # Scripts, data
 ```
-**Result**: JSONL loads cleanly - newlines escaped as `\n` in JSON strings.
 
----
-
-### Painpoint 3: Incomplete Shop Master
-
-**Problem**: id_business had 161 shops, but SMS surveys referenced 28 additional MOBIS codes. 1,218 SMS records couldn't be mapped.
-
-**Solution**: Accept partial coverage, flag with `is_mappable` boolean.
-- 63.8% SMS → dim_shops (full context)
-- 36.2% SMS kept with NULL shop_id (analyze by channel/MOBIS)
-
-**Lesson**: Master data is rarely complete. Design for graceful degradation.
-
----
-
-### Painpoint 4: Language Field 72% Empty
-
-**Problem**: IAM-Language column sparse. Needed language for SQL agent prompts.
-
-**Solution**: Infer from Belgian postal codes:
-```python
-def infer_language_from_zip(zipcode):
-    if 1000 <= z <= 1299: return 'BI'  # Brussels bilingual
-    if 4000 <= z <= 7999: return 'FR'  # Wallonia
-    else: return 'NL'  # Flanders
-```
-**Result**: 100% language coverage.
-
----
-
-### Painpoint 5: CLOSED Shops Polluting Master Data
-
-**Problem**: full_shop_infos had 2,224 rows but 835 (37.5%) were Macro-Segment = "CLOSED" (defunct businesses).
-
-**Solution**: Filter early in cleaning pipeline.
-```python
-shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
-```
-**Lesson**: EDA reveals what "clean" means. CLOSED was a business status, not a flag error.
+**Handoff = lab-level context only.** Case-specific details stay with the case.
 
 ---
 
@@ -346,16 +273,15 @@ shop_info_active = shop_info[shop_info['macro_segment'] != 'CLOSED']
 - No persistent state between skill invocations
 - Description length impacts activation accuracy
 
-### Data Analyst Specific
+### Data Analyst Skill
 - **/data-llm reads ALL prior phases** → must run after validate for complete context
 - **LLM context is for injection** → single self-contained doc, no external refs
+- **Master data often incomplete** → design for NULL foreign keys
+- **Validation gate catches cleaning misses** → always run even when confident
+
+### BigQuery / Data Loading
 - **CSV multiline fields break BigQuery** → use JSONL format
-- **MOBIS codes may have case variance** → always normalize to uppercase
-- **Shop master data often incomplete** → design for NULL foreign keys
-- **"CLOSED" in master data = defunct** → filter early, not an error flag
-- **Belgian zip codes map to language** → 1000-1299=BI, 4000-7999=FR, else=NL
-- **Validation gate catches cleaning misses** → 24 dupes, 3 nulls found post-clean
-- **Temporal validation needs UTC** → `pd.to_datetime(..., utc=True)` for tz-aware comparison
+- **Temporal validation needs UTC** → `pd.to_datetime(..., utc=True)`
 
 ### Plugin Ecosystem (To Verify)
 - **Plugin install syntax** → `/plugin install {name}@{source}` (TBD)
