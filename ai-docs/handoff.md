@@ -1,8 +1,16 @@
 ---
-version: 0.13.2
-updated: 2025-12-24
-last-session: Cleaned handoff — removed case-specific content, added use-case documentation policy
+version: 0.14.0
+updated: 2025-12-25
+last-session: Added mac-audit skill — 7 audit modules, cleanup script with --yes flag, tested full audit (freed 25GB+)
 changelog:
+  - version: 0.14.0
+    rationale: New skill added (mac-audit) — comprehensive macOS diagnostic tool
+    changes:
+      - Created mac-audit skill with 7 modular audit categories
+      - Modules: dev-tools, storage, caches, network, security, performance, maintenance
+      - Added cleanup.sh with --yes flag for non-interactive mode
+      - Fixed sim_count bug and added TTY detection
+      - Tested full audit workflow and freed 25GB+ from caches
   - version: 0.13.2
     changes:
       - Removed Orange CX painpoints (moved to use-case)
@@ -314,9 +322,7 @@ use-cases/{project}/
 
 **Next:** Run same complexity task WITHOUT skill to establish baseline.
 
-### Eugene Project (Backlog)
-
-Design brainstormed. Parked until plugin evaluation complete.
+### Anthropic Plugin Experimentation (Paused)
 
 **Outputs:** `use-cases/langgraph-test-brainstorm-command/`
 
@@ -327,7 +333,7 @@ Design brainstormed. Parked until plugin evaluation complete.
 - `ai-docs/plugins-experiment.md` — Plugin catalog (50 plugins)
 - `use-cases/langgraph-baseline-tests/` — Baseline test outputs
 
-### Plugin Experimentation (Paused)
+### Plugin Experimentation 
 - [ ] Install Phase 1 plugins (feature-dev, code-review, TDD, debugging, plugin-dev)
 - [ ] Test feature-dev workflow on init-cc-repo
 - [ ] Compare code-review vs pr-review-toolkit
